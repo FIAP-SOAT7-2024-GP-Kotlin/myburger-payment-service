@@ -25,15 +25,4 @@ class PaymentController(
     fun createPayment(@RequestBody request: PaymentCreationRequest): ResponseEntity<PaymentResponse>? = run {
         return ResponseEntity.ok(paymentHandler.createPayment(request))
     }
-
-//    fun startPayment(@RequestBody request: PaymentCreationRequest): ResponseEntity<QRCodeData>? = run {
-//        return ResponseEntity.ok(paymentHandler.startPaymentRequest(request))
-//    }
-
-//    @GetMapping("/order/{id}")
-//    fun getPaymentStatus(@PathVariable("id") orderID: UUID): ResponseEntity<PaymentResponse> = run {
-//        paymentHandler.getPaymentStatus(orderID).let {
-//            ResponseEntity.ok().body(it)
-//        }
-//    }
 }

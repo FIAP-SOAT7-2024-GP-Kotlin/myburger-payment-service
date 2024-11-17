@@ -12,6 +12,7 @@ fun PaymentCreationRequest.toDomain() = Payment(
     id = UUID.randomUUID(),
     orderId = this.orderId,
     orderPrice = this.orderPrice,
+    orderItems = this.orderItems,
 )
 
 fun Payment.toPersistence() = PaymentEntity(
@@ -31,6 +32,7 @@ fun PaymentEntity.toDomain() = Payment(
     status = PaymentStatus.valueOf(this.status),
     orderId = this.orderId,
     orderPrice = this.orderPrice,
+    orderItems = emptyList(),
     qrcode = this.qrcode,
     createdAt = this.createdAt,
     updatedAt = this.updatedAt,
@@ -48,6 +50,7 @@ fun Payment.toResponse() = PaymentResponse(
 fun Payment.toPaymentRequest(notificationUrl: String) = PaymentIntegrationRequest(
     description = "",
     externalReference = this.id.toString(),
+    items = this.orderItems,
     totalAmount = this.orderPrice,
     notificationUrl = notificationUrl,
 )
