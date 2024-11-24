@@ -23,6 +23,10 @@ class PaymentGateway(
         return repository.findById(id).getOrNull()?.toDomain()
     }
 
+    override fun findByOrderId(orderId: UUID): Payment? {
+        return repository.findByOrderId(orderId).getOrNull()?.toDomain()
+    }
+
     override fun update(payment: Payment): Payment {
         findById(payment.id) ?: throw EntityNotFoundException("Payment with id ${payment.id} not found")
 
