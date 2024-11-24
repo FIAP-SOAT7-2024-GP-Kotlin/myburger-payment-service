@@ -139,6 +139,24 @@ tasks.jacocoTestReport {
         xml.required = true
         csv.required = true
         html.outputLocation = layout.buildDirectory.dir("reports/jacoco/test/html")
+        xml.outputLocation.set(layout.buildDirectory.file("reports/jacoco/test/jacoco.xml"))
+        csv.outputLocation.set(layout.buildDirectory.file("reports/jacoco/test/jacoco.csv"))
+        classDirectories.setFrom(
+            files(
+                classDirectories.files.map {
+                    fileTree(it).apply {
+                        exclude("**/mapper/**")
+                        exclude("**/model/**")
+                        exclude("**/api/**")
+                        exclude("**/enum/**")
+                        exclude("**/config/**")
+                        exclude("**/common/**")
+                        exclude("**/exception/*")
+                        exclude("*/Application*")
+                    }
+                },
+            ),
+        )
     }
     dependsOn(tasks.test)
 }
