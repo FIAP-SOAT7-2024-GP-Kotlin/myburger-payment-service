@@ -17,13 +17,7 @@ class PaymentUseCase(
     private val paymentGateway: PaymentGateway,
 ) {
 
-//    fun startPaymentRequest(orderId: UUID, orderPrice: BigDecimal): QRCodeData {
-//        val payment = create(orderId, orderPrice)
-//
-//        return paymentIntegrationRepository.requestQRCodeDataForPayment(payment)
-//    }
-
-    fun create(payment: Payment): Payment {
+    fun createPayment(payment: Payment): Payment {
         logger.info { "Creating payment" }
 
         val qrcode = paymentIntegrationRepository.requestQRCodeDataForPayment(payment)
@@ -56,9 +50,13 @@ class PaymentUseCase(
         return updatedPayment
     }
 
-//    fun getPaymentStatus(orderId: UUID): Payment {
-//        val order = orderGateway.findById(orderId) ?: throw ReasonCodeException(ReasonCode.ORDER_NOT_FOUND)
-//
-//        return order.payment?.let { paymentGateway.findById(it.id) } ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
-//    }
+    fun getPayment(paymentId: UUID): Payment {
+        logger.info { "Get payment" }
+        return paymentGateway.findById(paymentId) ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
+    }
+
+    fun getPaymentByOrderId(orderId: UUID): Payment {
+        logger.info { "Get payment by orderId" }
+        return paymentGateway.findByOrderId(orderId) ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
+    }
 }

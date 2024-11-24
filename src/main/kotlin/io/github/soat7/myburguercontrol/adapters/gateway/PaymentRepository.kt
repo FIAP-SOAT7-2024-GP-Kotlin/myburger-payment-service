@@ -7,4 +7,5 @@ interface PaymentRepository {
     fun create(payment: Payment): Payment
     fun update(payment: Payment): Payment
     fun findById(id: UUID): Payment?
+    fun findByOrderId(orderId: UUID): Payment?
 }
