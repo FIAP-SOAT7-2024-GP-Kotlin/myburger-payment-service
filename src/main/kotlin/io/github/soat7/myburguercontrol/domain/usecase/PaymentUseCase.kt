@@ -33,9 +33,7 @@ class PaymentUseCase(
     fun updatePayment(paymentId: String, paymentStatus: String): Payment {
         logger.info { "Update payment: $paymentId status: $paymentStatus" }
 
-        val payment = paymentId.let {
-            paymentGateway.findById(UUID.fromString(paymentId))
-        } ?: throw ReasonCodeException(ReasonCode.PAYMENT_NOT_FOUND)
+        val payment = getPayment(UUID.fromString(paymentId))
 
         val updatedPayment = payment.copy(
             status = PaymentStatus.fromString(paymentStatus),
