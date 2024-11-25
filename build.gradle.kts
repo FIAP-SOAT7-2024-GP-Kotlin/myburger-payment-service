@@ -74,12 +74,6 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
     implementation("commons-codec:commons-codec:1.17.0")
 
-    // jwt
-//    implementation("io.jsonwebtoken:jjwt-api:0.12.+")
-//    implementation("io.jsonwebtoken:jjwt-impl:0.12.+")
-//    implementation("io.jsonwebtoken:jjwt-jackson:0.12.+")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -192,7 +186,7 @@ liquibase {
         this.arguments = mapOf(
             "changelogFile" to "db/changelog/master.xml",
             "classpath" to sourceSets.main.get().output.resourcesDir?.absolutePath,
-            "url" to "jdbc:postgresql://127.0.0.1:5432/myburguer",
+            "url" to "jdbc:${props["DATABASE_URL"]}",
             "username" to props["DATABASE_USER"],
             "password" to props["DATABASE_PASSWORD"],
             "count" to 1,
@@ -202,7 +196,7 @@ liquibase {
         this.arguments = mapOf(
             "changelogFile" to "${layout.buildDirectory.get()}/tmp/diff-changelog.xml",
             "classpath" to sourceSets.main.get().output.resourcesDir?.absolutePath,
-            "url" to "jdbc:postgresql://127.0.0.1:5432/myburguer",
+            "url" to "jdbc:${props["DATABASE_URL"]}",
             "username" to props["DATABASE_USER"],
             "password" to props["DATABASE_PASSWORD"],
             "referenceUrl" to "hibernate:spring:MY_MODEL_PACKAGE?" +
