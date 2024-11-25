@@ -11,6 +11,7 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
+
   jpa:
     database: POSTGRESQL
     show-sql: true
@@ -19,6 +20,7 @@ spring:
     properties:
       hibernate:
         default_schema: ${spring.datasource.schema}
+
   liquibase:
     change-log: classpath:/db/changelog/master.xml
     enabled: true
