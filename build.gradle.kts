@@ -131,6 +131,7 @@ tasks.withType<Test> {
 tasks.jacocoTestReport {
     reports {
         xml.required = true
+        html.required = true
         csv.required = true
         html.outputLocation = layout.buildDirectory.dir("reports/jacoco/test/html")
         xml.outputLocation.set(layout.buildDirectory.file("reports/jacoco/test/jacoco.xml"))
