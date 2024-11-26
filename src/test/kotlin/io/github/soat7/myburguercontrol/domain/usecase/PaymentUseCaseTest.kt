@@ -41,9 +41,9 @@ class PaymentUseCaseTest {
         val orderId = UUID.randomUUID()
         val paymentRequest = mockPayment(orderId)
 
-        every { paymentIntegrationRepository.requestQRCodeDataForPayment(any<Payment>())} returns mockQRCode(
+        every { paymentIntegrationRepository.requestQRCodeDataForPayment(any<Payment>()) } returns mockQRCode(
             UUID.randomUUID().toString(),
-            )
+        )
         every { paymentGateway.findById(any()) } returns mockPayment(orderId)
         every { paymentGateway.create(any()) } returns mockPayment(orderId)
         every { paymentGateway.update(any()) } returns mockPayment(orderId)
