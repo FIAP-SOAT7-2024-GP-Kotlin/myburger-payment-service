@@ -29,4 +29,24 @@ object PaymentFixtures {
     }
 
     fun mockQRCode(orderId: String) = QRCodeData("QRCodeData", orderId)
+
+    fun mockPaymentUpdateById(paymentId: UUID, status: PaymentStatus): Payment {
+        return Payment(
+            id = paymentId,
+            status = status,
+            orderId = UUID.randomUUID(),
+            orderPrice = 10.0.toBigDecimal(),
+            authorizationId = null,
+            orderItems = listOf(
+                OrderItem(
+                    title = "item1",
+                    description = "descricao1",
+                    unitPrice = 10.0.toBigDecimal(),
+                    quantity = 1,
+                    unitMeasure = "Unit",
+                    totalAmount = 10.0.toBigDecimal(),
+                ),
+            ),
+        )
+    }
 }
