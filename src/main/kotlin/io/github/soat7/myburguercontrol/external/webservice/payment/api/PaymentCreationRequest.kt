@@ -25,5 +25,5 @@ data class OrderItem(
     val unitPrice: BigDecimal,
     val quantity: Int,
     val unitMeasure: String,
-    val totalAmount: BigDecimal
+    val totalAmount: BigDecimal,
 )

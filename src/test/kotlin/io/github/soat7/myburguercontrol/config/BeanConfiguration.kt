@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile
 
 @TestConfiguration
 @Profile("test")
-class BeanConfiguration{
+class BeanConfiguration {
 
     @Bean
     fun paymentUseCase(
