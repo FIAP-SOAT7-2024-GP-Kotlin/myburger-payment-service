@@ -7,6 +7,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -28,13 +29,13 @@ class PaymentController(
         return ResponseEntity.ok(paymentHandler.createPayment(request))
     }
 
-    @GetMapping
-    fun getPayment(paymentId: UUID): ResponseEntity<PaymentResponse> {
+    @GetMapping("/{paymentId}")
+    fun getPayment(@PathVariable paymentId: UUID): ResponseEntity<PaymentResponse> {
         return ResponseEntity.ok(paymentHandler.getPayment(paymentId))
     }
 
-    @GetMapping("/order")
-    fun getPaymentByOrderId(orderId: UUID): ResponseEntity<PaymentResponse> {
+    @GetMapping("/order/{orderId}")
+    fun getPaymentByOrderId(@PathVariable orderId: UUID): ResponseEntity<PaymentResponse> {
         return ResponseEntity.ok(paymentHandler.getPaymentByOrderId(orderId))
     }
 }

@@ -55,4 +55,46 @@ class PaymentIT : BaseIntegrationTest() {
             Executable { assertEquals(orderId, response.body!!.orderId) },
         )
     }
+
+    @Test
+    fun `should successfully get payment`() {
+        val orderId = UUID.randomUUID()
+        val payment = insertPaymentData(PaymentFixtures.mockPayment(orderId))
+
+        val response = restTemplate.exchange<PaymentResponse>(
+            url = "/payment/{id}",
+            method = HttpMethod.GET,
+            requestEntity = null,
+            uriVariables = mapOf(
+                "id" to payment.id,
+            ),
+        )
+
+        assertAll(
+            Executable { assertTrue(response.statusCode.is2xxSuccessful) },
+            Executable { assertNotNull(response.body) },
+            Executable { assertEquals(payment.id, UUID.fromString(response.body!!.id)) },
+        )
+    }
+
+    @Test
+    fun `should successfully get payment from orderId`() {
+        val orderId = UUID.randomUUID()
+        val payment = insertPaymentData(PaymentFixtures.mockPayment(orderId))
+
+        val response = restTemplate.exchange<PaymentResponse>(
+            url = "/payment/order/{id}",
+            method = HttpMethod.GET,
+            requestEntity = null,
+            uriVariables = mapOf(
+                "id" to payment.orderId,
+            ),
+        )
+
+        assertAll(
+            Executable { assertTrue(response.statusCode.is2xxSuccessful) },
+            Executable { assertNotNull(response.body) },
+            Executable { assertEquals(payment.orderId, response.body!!.orderId) },
+        )
+    }
 }
