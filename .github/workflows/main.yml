@@ -1,4 +1,4 @@
-name: CI [MyBurguer - Order Service]
+name: CI [MyBurguer - Payment Service]
 
 on: [push, pull_request]
 
@@ -22,7 +22,7 @@ jobs:
           cache: 'gradle'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v3
         with:
           build-scan-publish: true
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
@@ -31,12 +31,6 @@ jobs:
       - name: Run build
         run: ./gradlew clean build --no-daemon -x test
 
-  test:
-    runs-on: ubuntu-latest
-
-    needs: [build]
-
-    steps:
       - name: Run tests
         run: ./gradlew test --info --stacktrace
 #
