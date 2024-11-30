@@ -1,4 +1,4 @@
-name: CD MyBurger
+name: CD MyBurger Payment Service
 
 on:
   workflow_run:
