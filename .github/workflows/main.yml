@@ -1,4 +1,4 @@
-name: CI [MyBurguer - Payment Service]
+name: CI MyBurger Payment Service
 
 on: [push, pull_request]
 
