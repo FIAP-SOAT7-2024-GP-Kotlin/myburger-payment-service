@@ -33,45 +33,45 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test --info --stacktrace
-#
-#      - name: Generate JaCoCo Test Coverage Report
-#        run: ./gradlew jacocoTestReport
-#
-#      - name: Get current date
-#        id: date
-#        run: echo "::set-output name=date::$(date +'%Y%m%d')"
-#
-#      - name: Check Test Coverage
-#        run: |
-#          echo "Test Coverage Report:"
-#          ls -la build/reports/jacoco/test
-#
-#      - name: Upload JaCoCo Test Coverage Report to Artifacts
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: jacoco-report
-#          path: build/reports/jacoco/test/html/
-#
-#      - name: Generate JaCoCo Badge
-#        id: jacoco
-#        uses: cicirello/jacoco-badge-generator@v2
-#        with:
-#          generate-coverage-badge: true
-#          generate-branches-badge: true
-#          jacoco-csv-file: build/reports/jacoco/test/jacoco.csv
-#
-#      - name: Log coverage percentage
-#        run: |
-#          echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-#          echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
-#
-#      - name: Commit and push the badge (if it changed)
-#        uses: EndBug/add-and-commit@v7
-#        with:
-#          default_author: github_actions
-#          message: 'commit badge'
-#          add: '*.svg'
-#
+
+      - name: Generate JaCoCo Test Coverage Report
+        run: ./gradlew jacocoTestReport
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
+      - name: Check Test Coverage
+        run: |
+          echo "Test Coverage Report:"
+          ls -la build/reports/jacoco/test
+
+      - name: Upload JaCoCo Test Coverage Report to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test/html/
+
+      - name: Generate JaCoCo Badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-coverage-badge: true
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/test/jacoco.csv
+
+      - name: Log coverage percentage
+        run: |
+          echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+          echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
+
+      - name: Commit and push the badge (if it changed)
+        uses: EndBug/add-and-commit@v7
+        with:
+          default_author: github_actions
+          message: 'commit badge'
+          add: '*.svg'
+
 #      - name: Run SonarQube Analysis
 #        env:
 #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -88,19 +88,18 @@ jobs:
 #          -Dsonar.tests=src/test/kotlin \
 #          sonar
 #
-#
-#      - name: Authentication Docker Hub
-#        uses: docker/login-action@v3.2.0
-#        with:
-#          username: ${{secrets.DOCKERHUB_USER}}
-#          password: ${{secrets.DOCKERHUB_PWD}}
-#
-#      - name: Build the Docker image
-#        uses: docker/build-push-action@v6.0.0
-#        with:
-#          context: ./
-#          file: ./Dockerfile
-#          push: true
-#          tags: |
-#            fiapmyburguer/${{ env.REPO_NAME }}:${{ steps.date.outputs.date }}
-#            fiapmyburguer/${{ env.REPO_NAME }}:latest
+      - name: Authentication Docker Hub
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PWD}}
+
+      - name: Build the Docker image
+        uses: docker/build-push-action@v6.0.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: |
+            fiapmyburguer/${{ env.REPO_NAME }}:${{ steps.date.outputs.date }}
+            fiapmyburguer/${{ env.REPO_NAME }}:latest
