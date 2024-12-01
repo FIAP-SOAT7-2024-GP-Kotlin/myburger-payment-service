@@ -13,7 +13,7 @@ import java.util.UUID
 @Entity
 @Table(
     name = "payment",
-    schema = "myburguer",
+    schema = "myburguer_payment",
 )
 class PaymentEntity(
     @Id
