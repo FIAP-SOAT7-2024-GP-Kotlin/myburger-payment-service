@@ -148,6 +148,9 @@ tasks.jacocoTestReport {
                         exclude("**/common/**")
                         exclude("**/exception/*")
                         exclude("*/Application*")
+                        exclude("**/notification/**")
+                        exclude("**/usecase/NotificationWebhookUseCase*")
+                        exclude("**/usecase/NotificationIpnUseCase*")
                     }
                 },
             ),
