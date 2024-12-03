@@ -95,13 +95,12 @@ class PaymentUseCaseTest {
             UUID.randomUUID().toString(),
         )
         every { paymentGateway.findById(any()) } returns mockPayment(orderId)
+        every { paymentGateway.findByOrderId(any()) } returns mockPayment(orderId)
         every { paymentGateway.create(any()) } returns mockPayment(orderId)
         every { paymentGateway.update(any()) } returns mockPaymentUpdateById(payment.id, PaymentStatus.APPROVED)
 
-        val paymentUpdated = service.updatePayment(payment.id.toString(), "paid")
-        verify(exactly = 1) { paymentGateway.findById(any()) }
+        val paymentUpdated = service.updatePayment(payment.orderId.toString(), "paid")
         verify(exactly = 1) { paymentGateway.update(any()) }
-        verify(exactly = 0) { paymentGateway.findByOrderId(any()) }
 
         Assertions.assertAll(
             Executable { assertNotNull(paymentUpdated) },
@@ -124,13 +123,12 @@ class PaymentUseCaseTest {
     @Test
     @Order(3)
     fun `can't find payment in update`() {
-        every { paymentGateway.findById(any()) } returns null
+        every { paymentGateway.findByOrderId(any()) } returns null
 
         Assertions.assertThrows(ReasonCodeException::class.java) {
             service.updatePayment(UUID.randomUUID().toString(), "paid")
         }
 
-        verify(exactly = 1) { paymentGateway.findById(any()) }
         verify(exactly = 0) { paymentGateway.update(any()) }
     }
 
