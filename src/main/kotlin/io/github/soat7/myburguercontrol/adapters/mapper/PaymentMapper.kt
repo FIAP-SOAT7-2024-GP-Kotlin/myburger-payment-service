@@ -49,7 +49,7 @@ fun Payment.toResponse() = PaymentResponse(
 
 fun Payment.toPaymentRequest(notificationUrl: String) = PaymentIntegrationRequest(
     description = "",
-    externalReference = this.id.toString(),
+    externalReference = this.orderId.toString(),
     items = this.orderItems,
     totalAmount = this.orderPrice,
     notificationUrl = notificationUrl,
